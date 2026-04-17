@@ -1,0 +1,17 @@
+[
+    {
+        "icon":"MdPlace",
+        "title":"Find us",
+        "details":"Pune,Maharastha"
+    },
+    {
+        "icon":"IoCallSharp",
+        "title":"Call us",
+        "details":"37222545656"
+    },
+    {
+        "icon":"TbMailPlus",
+        "title":"Mail us",
+        "details":"contact1@gmail.com"
+    }
+]

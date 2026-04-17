@@ -1,0 +1,72 @@
+[
+    {
+      "id": 1,
+      "countryName": "India",
+      "capital": "New Delhi",
+      "population": "1.4 Billion",
+      "interestingFact": "India is the largest democracy in the world."
+    },
+    {
+      "id": 2,
+      "countryName": "United States",
+      "capital": "Washington, D.C.",
+      "population": "333 Million",
+      "interestingFact": "The US has the largest economy in the world."
+    },
+    {
+      "id": 3,
+      "countryName": "Japan",
+      "capital": "Tokyo",
+      "population": "125 Million",
+      "interestingFact": "Japan has more elderly people than children."
+    },
+    {
+      "id": 4,
+      "countryName": "Germany",
+      "capital": "Berlin",
+      "population": "83 Million",
+      "interestingFact": "Germany is known for its engineering and automotive industry."
+    },
+    {
+      "id": 5,
+      "countryName": "Brazil",
+      "capital": "Brasília",
+      "population": "214 Million",
+      "interestingFact": "Brazil is home to the Amazon rainforest."
+    },
+    {
+      "id": 6,
+      "countryName": "Canada",
+      "capital": "Ottawa",
+      "population": "40 Million",
+      "interestingFact": "Canada has more lakes than any other country."
+    },
+    {
+      "id": 7,
+      "countryName": "Australia",
+      "capital": "Canberra",
+      "population": "26 Million",
+      "interestingFact": "Australia is both a country and a continent."
+    },
+    {
+      "id": 8,
+      "countryName": "France",
+      "capital": "Paris",
+      "population": "67 Million",
+      "interestingFact": "France is the most visited country in the world."
+    },
+    {
+      "id": 9,
+      "countryName": "China",
+      "capital": "Beijing",
+      "population": "1.4 Billion",
+      "interestingFact": "China has the longest wall in the world – the Great Wall."
+    },
+    {
+      "id": 10,
+      "countryName": "South Africa",
+      "capital": "Pretoria",
+      "population": "60 Million",
+      "interestingFact": "South Africa has three capital cities."
+    }
+  ]

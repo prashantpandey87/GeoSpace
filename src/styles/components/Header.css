@@ -1,0 +1,178 @@
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px clamp(14px, 3vw, 28px);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 200;
+}
+
+.brand-link {
+  text-decoration: none;
+}
+
+.brand-title {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.3px;
+}
+
+.nav-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+  
+.nav-link {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-link:hover {
+  background: var(--accent-bg);
+  color: var(--text-h);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  background: var(--accent-bg);
+}
+
+/* default (desktop) */
+.menu {
+  display: flex;
+  margin-left: auto;
+}
+
+/* hide hamburger on desktop */
+.menu-toggle-wrap {
+  display: none;
+}
+
+.menu-toggle-btn {
+  border: 0;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-h);
+  cursor: pointer;
+}
+
+.menu-backdrop {
+  display: none;
+}
+
+/* 🔥 mobile */
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 12px;
+    right: 12px;
+    width: auto;
+    padding: 14px;
+    margin: 0;
+    border: 1px solid rgba(126, 155, 255, 0.35);
+    border-radius: 18px;
+    background: linear-gradient(140deg, rgba(20, 23, 44, 0.94), rgba(9, 10, 20, 0.9));
+    backdrop-filter: blur(10px);
+    box-shadow: 0 22px 40px rgba(0, 0, 0, 0.45);
+    z-index: 240;
+    transform: translateY(-8px) scale(0.98);
+    opacity: 0;
+    transform-origin: top right;
+  }
+
+  .menu.active {
+    display: block;
+    animation: menu-pop 0.22s ease forwards;
+  }
+
+  .menu-toggle-wrap {
+    display: block;
+    margin-left: auto;
+    z-index: 250;
+  }
+
+  .menu-toggle-btn {
+    border: 1px solid rgba(126, 155, 255, 0.35);
+    background: rgba(10, 12, 25, 0.72);
+    color: #f2f6ff;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+  }
+
+  .menu-toggle-btn:focus-visible {
+    outline: 2px solid rgba(161, 217, 255, 0.95);
+    outline-offset: 2px;
+  }
+
+  .menu-backdrop {
+    display: block;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 220;
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background: rgba(10, 11, 19, 0.3);
+    backdrop-filter: blur(8px) saturate(1.1);
+    cursor: pointer;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    gap: 8px;
+    align-items: stretch;
+  }
+
+  .nav-link {
+    display: block;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    color: #ecf4ff;
+    text-align: center;
+  }
+
+  .nav-link:hover {
+    background: rgba(139, 219, 255, 0.2);
+    color: #ffffff;
+  }
+
+  .nav-link.active {
+    background: rgba(114, 178, 255, 0.24);
+    color: #ffffff;
+  }
+}
+
+@keyframes menu-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

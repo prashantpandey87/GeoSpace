@@ -1,0 +1,56 @@
+
+.page-main {
+    padding: 40px 28px;
+    display: grid;
+    place-items: center;
+  }
+  
+  .page-card {
+    width: min(100%, 760px);
+    border-radius: 12px;
+    padding: 28px 22px;
+    text-align: center;
+    border: 1px solid var(--border);
+    background: var(--bg);
+  }
+  
+  .page-card h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.6rem, 3.4vw, 2.3rem);
+  }
+  
+  .page-card p {
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .page-main {
+      padding: 24px 16px;
+    }
+  
+    .page-card {
+      padding: 22px 16px;
+    }
+  }
+  
+  /* HTML: <div class="loader"></div> */
+.loader {
+    width: 50px;
+    --b: 8px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #514b82;
+    -webkit-mask:
+      repeating-conic-gradient(#0000 0deg,#000 1deg 70deg,#0000 71deg 90deg),
+      radial-gradient(farthest-side,#0000 calc(100% - var(--b) - 1px),#000 calc(100% - var(--b)));
+    -webkit-mask-composite: destination-in;
+            mask-composite: intersect;
+    animation: l5 1s infinite;
+  }
+  @keyframes l5 {to{transform: rotate(.5turn)}}
+
+.loader-wrap {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+}
