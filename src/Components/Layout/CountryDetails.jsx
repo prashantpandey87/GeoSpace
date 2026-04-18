@@ -15,7 +15,7 @@ const CountryDetails = () => {
 
 
     useEffect(() => {
-       const isMounted=true
+       let isMounted=true
        const fetchCountryByName = async () => {
         try {
             const res = await getCountryByName(params.id)
@@ -29,7 +29,6 @@ const CountryDetails = () => {
             if(isMounted)
             { SetLoading(false)} 
         }
-
     }
     fetchCountryByName()
    return ()=>{
