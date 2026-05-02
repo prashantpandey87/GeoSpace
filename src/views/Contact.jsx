@@ -1,18 +1,19 @@
-import React from 'react'
+'use client'
+
 import '../styles/pages/Contact.css'
 
 const Contact = () => {
-  const handleSubmit=(formData)=>{
-    console.log(formData.entries())
-    // it reurns iterator of key pair value
-   const formInput= Object.fromEntries(formData.entries())
+  const handleSubmit=(event)=>{
+    event.preventDefault()
+    const formData = new FormData(event.currentTarget)
+    const formInput= Object.fromEntries(formData.entries())
    console.log(formInput)
   }
   return (
     <section className="contact-main">
       <div className="contact-card">
         <h1>Contact Us</h1>
-        <form action={handleSubmit}className="contact-form">
+        <form onSubmit={handleSubmit} className="contact-form">
           <input
             type="text"
             required

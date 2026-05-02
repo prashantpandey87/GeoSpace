@@ -1,5 +1,4 @@
 import countryFacts from "../Api/CountryData.json"
-import React from 'react'
 import '../styles/pages/About.css'
 
 const About = () => {
@@ -7,7 +6,7 @@ const About = () => {
     <section className="about-main">
       <header className="about-heading">
         <h1>Here are the Interesting Facts</h1>
-        <p>we're proud of</p>
+        <p>we&apos;re proud of</p>
       </header>
 
       <div className="about-grid">
@@ -27,4 +26,3 @@ const About = () => {
 };
 
 export default About;
- 

@@ -1,16 +1,15 @@
-import React, { useEffect, useMemo, useState } from 'react'
+'use client'
+
+import { useEffect, useMemo, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import '../styles/pages/Country.css'
 import { getCountries } from '../Api/Client'
 import Loading from '../Components/UI/Loading'
 import CountryCard from '../Components/Layout/CountryCard'
 import SearchFilter from '../Components/UI/SearchFilter'
 
-
 const Country = () => {
 
-  const [countries, setCountries] = useState([])
-  const [loading, SetLoading] = useState(true)
-  const [error,setError]=useState("")
   const [search, setSearch] = useState("")
   const [filter, setFilter] = useState("All")
   const [sortOrder, setSortOrder] = useState("");
@@ -25,39 +24,18 @@ const Country = () => {
     return () => clearTimeout(timer)
   }, [search])
 
-  useEffect(() => {
+  const {
+    data: countries = [],
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['countries'],
+    queryFn: async () => {
+      const res = await getCountries()
+      return res.data
+    },
+  })
 
-    let isMounted = true
-    const fetchCountries = async () => {
-      try {
-        const res = await getCountries()
-        if (isMounted) {
-          setCountries(res.data)
-        }
-      } catch (error) {
-        if(isMounted)
-        {setError(error)}
-      }
-      finally {
-        if (isMounted) {
-          SetLoading(false)
-        }
-      }
-
-    }
-    fetchCountries()
-    return () => {
-      isMounted = false
-    }
-
-  }, [])
-
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [debouncedSearch, filter])
-
-
-  // here is the main logic and Sorted Logic
   const filterCountries = useMemo(() => {
     let result = countries.filter((country) => {
       const matchesSearch = debouncedSearch
@@ -80,18 +58,6 @@ const Country = () => {
     return result;
   }, [countries, debouncedSearch, filter, sortOrder]);
 
-  // Suggestion
-  // const q = debouncedSearch.toLowerCase().trim()
-  // const suggestions = debouncedSearch.trim()
-  //   ? filterCountries
-  //     .filter((country) => {
-  //       const n = country.name.common.toLowerCase()
-
-  //       return n.includes(q) && n !== q
-  //     })
-  //     .slice(0, 5)
-  //   : []
-
 const suggestions=useMemo(()=>{
   const q = debouncedSearch.toLowerCase().trim()
   if (!q) return []; 
@@ -101,9 +67,6 @@ const suggestions=useMemo(()=>{
   }).slice(0,5)
 },[debouncedSearch,filterCountries])
 
-
-//pagination
-
 const isSearching = debouncedSearch.trim() !== ""
   const totalPages = Math.ceil(filterCountries.length / itemPerPage)
   const pages = [...Array(totalPages).keys()].map((i) => i + 1)
@@ -112,19 +75,22 @@ const isSearching = debouncedSearch.trim() !== ""
   const paginatedCountries = filterCountries.slice(startIndex, endIndex)
   const displayCountries = isSearching ? filterCountries : paginatedCountries
 
- 
-
-
-  if (loading) return <Loading />
-  if (error) return <p className="country-error">{error}</p>;
+  if (isLoading) return <Loading />
+  if (isError) return <p className="country-error">Failed to load countries.</p>;
 
   return (
     <section className="country-page">
       <SearchFilter
         search={search} 
-        setSearch={setSearch} 
+        setSearch={(value) => {
+          setSearch(value)
+          setCurrentPage(1)
+        }}
         filter={filter} 
-        setFilter={setFilter} 
+        setFilter={(value) => {
+          setFilter(value)
+          setCurrentPage(1)
+        }}
         suggestions={suggestions} 
         setSortOrder={setSortOrder}/>
       <ul className="country-list">
@@ -136,10 +102,6 @@ const isSearching = debouncedSearch.trim() !== ""
       </ul>
       {!isSearching && totalPages > 1 && <div className='pagination'>
         <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage == 1}>Prev</button>
-        {/* <span>
-        Page {currentPage}of {totalPages}
-      </span> */}
-
         {
           pages.map((page) => (
             <button onClick={() =>

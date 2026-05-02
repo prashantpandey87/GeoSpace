@@ -1,4 +1,3 @@
-import React from 'react'
 import '../../styles/components/Footer.css'
 import footerData from "../../Api/FooterData.json"
 import {  MdPlace } from 'react-icons/md'
@@ -15,7 +14,7 @@ const Footer = () => {
   return (
     <footer className="app-footer">
       <div className="footer-row">
-        {footerData.map((curData,index)=>{
+        {footerData.map((curData)=>{
           const {icon,title,tittle,details}=curData
           return(
             <div className="footer-item" key={tittle|| details}>

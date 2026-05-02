@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { NavLink, useParams } from 'react-router-dom'
+'use client'
+
+import { useQuery } from '@tanstack/react-query'
+import Link from 'next/link'
+import { useParams } from 'next/navigation'
 import Loading from '../UI/Loading'
 import { getCountryByName } from '../../Api/Client'
 import '../../styles/layout/CountryDetails.css'
@@ -7,38 +10,18 @@ import '../../styles/layout/CountryDetails.css'
 
 const CountryDetails = () => {
     const params = useParams()
+    const countryId = decodeURIComponent(params.id)
 
-    const [country, SetCountry] = useState(null)
-    const [loading, SetLoading] = useState(true)
-    const [error,setError]=useState("")
-
-
-
-    useEffect(() => {
-       let isMounted=true
-       const fetchCountryByName = async () => {
-        try {
-            const res = await getCountryByName(params.id)
-            if(isMounted)
-            { SetCountry(res.data[0])}
-        } catch (error) {
-            if(isMounted)
-            { setError("Failed to load country details.");}
-        }
-        finally {
-            if(isMounted)
-            { SetLoading(false)} 
-        }
-    }
-    fetchCountryByName()
-   return ()=>{
-    isMounted=false
-   }
-
-    }, [params.id])
-
-    if (loading) return <Loading />
-    if (error) return <p>{error}</p>;
+    const { data: country, isLoading, isError } = useQuery({
+        queryKey: ['country', countryId],
+        queryFn: async () => {
+            const res = await getCountryByName(countryId)
+            return res.data?.[0] ?? null
+        },
+        enabled: Boolean(countryId),
+    })
+    if (isLoading) return <Loading />
+    if (isError) return <p>Failed to load country details.</p>;
     if (!country) return <p>No country found.</p>;
 
 
@@ -63,9 +46,9 @@ const CountryDetails = () => {
                     <p className="country-details-meta">Currencies:- <span>{Object.keys(country.currencies).map((currency) => country.currencies[currency].name).join(", ")}</span></p>
                     <p className="country-details-meta">Language:- <span>{Object.keys(country.languages).map((lang) => country.languages[lang]).join(", ")}</span></p>
                 </div>
-                <NavLink className="country-back-link" to="/Country">
+                <Link className="country-back-link" href="/country">
                     <button className="country-back-btn">Go Back</button>
-                </NavLink>
+                </Link>
 
             </div>
         </section>

@@ -1,6 +1,5 @@
-import React from 'react'
 import '../../styles/pages/Country.css'
-import { NavLink } from 'react-router-dom'
+import Link from 'next/link'
 
 const CountryCard = ({country}) => {
     const{flags,name,population,region,capital}=country
@@ -20,9 +19,9 @@ const CountryCard = ({country}) => {
             <p className="country-meta">
             <span>Capital:</span> {capital?.[0] || 'N/A'}
             </p>
-            <NavLink className="country-btn" to={`/country/${name.common}`}>
+            <Link className="country-btn" href={`/country/${name.common}`}>
               Read More
-            </NavLink>
+            </Link>
             
         </div>
     </li>

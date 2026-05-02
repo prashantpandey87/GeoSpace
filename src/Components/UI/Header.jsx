@@ -1,40 +1,53 @@
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+'use client'
+
+import { useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import '../../styles/components/Header.css'
 import { GiHamburgerMenu } from 'react-icons/gi'
 
 const Header = () => {
    const[show,setShow]=useState(false)
+   const pathname = usePathname()
+
+  const getLinkClass = (href) => {
+    if (href === '/home' && (pathname === '/' || pathname === '/home')) {
+      return 'nav-link active'
+    }
+
+    return pathname === href ? 'nav-link active' : 'nav-link'
+  }
+
   const handleButtonToggle=()=>{
     setShow((prev) => !prev);
   }
   return (
     <header className="app-header">
-      <NavLink className="brand-link" to="/">
+      <Link className="brand-link" href="/">
         <h2 className="brand-title">GeoScope</h2>
-      </NavLink>
+      </Link>
 
       <nav id="primary-menu" className={`menu ${show ? "active" : ""}`}>
         <ul className="nav-list" onClick={() => setShow(false)}>
           <li>
-            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/Home">
+            <Link className={getLinkClass('/home')} href="/home">
               Home
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/Country">
+            <Link className={getLinkClass('/country')} href="/country">
               Country
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/About">
+            <Link className={getLinkClass('/about')} href="/about">
               About
-            </NavLink>
+            </Link>
           </li>
           <li>
-            <NavLink className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')} to="/Contact">
+            <Link className={getLinkClass('/contact')} href="/contact">
               Contact
-            </NavLink>
+            </Link>
           </li>
         </ul>
       </nav>
